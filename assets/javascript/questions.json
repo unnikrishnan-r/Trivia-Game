@@ -1,0 +1,10 @@
+{
+  "question 1": {
+    "question": "What is the captital of Kerala",
+    "choices": {
+      "choice1": "Ernakulam",
+      "choice2": "Trivandum"
+    },
+    "answer": "Trivandum"
+  }
+}
