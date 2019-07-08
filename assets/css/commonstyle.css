@@ -1,0 +1,51 @@
+.container {
+    /* clear: both; */
+    overflow: auto;
+    width: 66vw;
+    height: 100vh;
+    text-align: center;
+    background-color:#FFFACD;
+}
+
+#gameTitle{
+    font-family: 'Barriecito', cursive;
+    /* font-size: 70px; */
+    color: blue;
+    margin-top: 15%;
+}
+
+#startButton {
+    margin-top: 30%;
+}
+
+#questionBlock {
+    margin-top: 5%;
+    border:20px;
+}
+
+#timeMessage , #outOfTimeMessage{
+    margin-top: 10%;
+    font-family: 'Libre Baskerville', serif;
+    /* font-size: 50px; */
+
+}
+
+.choiceItemBox:hover{
+    background-color: pink;
+}
+
+.choiceItemBox{
+    padding: 5px;
+
+}
+
+.choiceItem{
+    margin:5px;
+}
+
+.questionFont{
+    font-family: 'DM Serif Display', serif;
+    /* font-size: 30px; */
+
+}
+
