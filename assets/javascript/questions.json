@@ -1,10 +1,31 @@
 {
-  "question 1": {
-    "question": "What is the captital of Kerala",
+  "question1": {
+    "questionNbr": 1,
+    "question": "What is the captital of Kerala?",
     "choices": {
       "choice1": "Ernakulam",
-      "choice2": "Trivandum"
+      "choice2": "Trivandum",
+      "choice3": "Calicut"
+
     },
     "answer": "Trivandum"
+  },
+  "question2": {
+    "questionNbr": 2,
+    "question": "What is the captital of Tamil Nadu?",
+    "choices": {
+      "choice1": "Chennai",
+      "choice2": "Coimbatore"
+    },
+    "answer": "Chennai"
+  },
+  "question3": {
+    "questionNbr": 3,
+    "question": "What is the captital of Tamil Nadu?",
+    "choices": {
+      "choice1": "Chennai",
+      "choice2": "xxx"
+    },
+    "answer": "Chennai"
   }
 }
