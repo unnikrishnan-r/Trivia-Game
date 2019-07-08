@@ -2,9 +2,19 @@ $(document).ready(function () {
 
     var timerMessage;
     var remainingSeconds;
+    var currentQuestionNumber = 0;
+    var countDown;
+    var d = new Date();
+
+
+    var unAnsweredQuestionCounter = 0;
+    var inCorrectAnswerCounter = 0;
+    var correctAnswerCounter = 0;
+
+    var gameObject = {};
 
     function readQuestionFile() {
-        console.log("Read Started");
+        // console.log("Read Started");
         fetch("/assets/javascript/questions.json")
             .then(function (resp) {
                 return resp.json();
@@ -14,9 +24,21 @@ $(document).ready(function () {
                 // console.log(data);
                 startGame(data);
             })
-        console.log("Read Completed");
+        // console.log("Read Completed");
     };
 
+    function waitBeforeNextQuestion() {
+        setTimeout(function () {
+            // console.log("Going to ask Next Q");
+            currentQuestionNumber++;
+            // console.log(gameObject['question' + currentQuestionNumber])
+            $('#outOfTimeMessage').remove();
+            $('.questionFont').remove();
+            createQuestionHtmlElement();
+            askQuestion(gameObject['question' + currentQuestionNumber]);
+        }, 2000);
+
+    }
 
     function showStartButton() {
         $('.container').append($('<div>', {
@@ -31,18 +53,19 @@ $(document).ready(function () {
         }));
 
         $('#startBtn').on("click", function () {
-            console.log("Clicked Start Button");
+            // console.log("Clicked Start Button");
             readQuestionFile();
         });
     }
 
     function startGame(gameQuestions) {
-        console.log(gameQuestions);
-        console.log(Object.keys(gameQuestions));
+        // console.log(gameQuestions);
+        // console.log(Object.keys(gameQuestions));
         $('#startButton').remove();
+        gameObject = gameQuestions;
         createQuestionHtmlElement();
         askQuestion(gameQuestions.question1);
-        startCountDown();
+        currentQuestionNumber = 1;
     }
 
     function createQuestionHtmlElement() {
@@ -64,7 +87,7 @@ $(document).ready(function () {
     }
 
     function askQuestion(question) {
-        console.log(question.question);
+        // console.log(question.question);
 
 
         $('#questionBlock').append($('<div>', {
@@ -78,10 +101,8 @@ $(document).ready(function () {
             id: 'choiceList'
         }));
 
-        console.log(choiceArray);
+        // console.log(choiceArray);
         for (var i = 0; i < choiceArray.length; i++) {
-            $('#questionText').append('<p>' + '\n' + '</p>');
-
             $('#choiceList')
                 .append($('<div>', {
                         class: 'choiceItemBox justify-content-md-center'
@@ -89,31 +110,86 @@ $(document).ready(function () {
                     .append($('<p>', {
                         class: 'choiceItem justify-content-md-center questionFont',
                         text: choiceArray[i],
-                        'cnbr': i
+                        'cnbr': choiceArray[i]
                     })))
 
         }
         $('.choiceItem').on("click", function () {
-            console.log($(this).attr("cnbr"))
-            // processSelectedChoice(cnbr);
+            // console.log($(this).attr("cnbr"))
+            processResult(currentQuestionNumber, $(this).attr("cnbr"), false);
         })
+
+        startCountDown();
+
 
     }
 
     function startCountDown() {
-        remainingSeconds = 30;  
-        var countDown = setInterval(function(){
-            remainingSeconds --;
+
+        remainingSeconds = 5;
+        countDown = setInterval(function () {
+            remainingSeconds--;
             timerMessage = "Time Remaining: " + remainingSeconds + " Seconds";
-    
+
             $('#timeMessage').text(timerMessage);
 
             if (remainingSeconds <= 0) {
-                clearInterval(countDown);
-                handlegameTimedOut();
+                processResult(currentQuestionNumber, null, true);
             }
-    
-        },1000)
+
+        }, 1000)
+
+    }
+
+    function processResult(currentQuestionNumber, selectedAnswer, timedOut) {
+
+        clearInterval(countDown);
+        $('#questionBlock').remove();
+        $('#choiceBlock').remove();
+
+        var correctAnswer = 'The Correct Answer is : ' + gameObject['question' + currentQuestionNumber].answer
+        var gameMessage;
+
+        if (timedOut) {
+            // console.log("Timed Out")
+            unAnsweredQuestionCounter++;
+            gameMessage = "Out of Time !!!";
+        } else {
+
+
+            if (gameObject['question' + currentQuestionNumber].answer === selectedAnswer) {
+                // console.log("Correct Choice")
+                correctAnswerCounter++;
+                gameMessage = "Correct !!!"
+
+            } else {
+                // console.log("InCorrect Choice")
+                inCorrectAnswerCounter++;
+                gameMessage = "Nope !!!"
+            }
+        }
+
+        $('.container').append($('<div>', {
+            id: 'outOfTimeMessage',
+            text: gameMessage
+        }));
+
+
+        $('.container').append($('<div>', {
+            class: 'questionFont',
+            text: correctAnswer
+        }));
+
+        if (currentQuestionNumber < Object.keys(gameObject).length) {
+
+            waitBeforeNextQuestion();
+        }else{
+
+            console.log("Correct Answer : " + correctAnswerCounter);
+            console.log("Incorrect Answer : " + inCorrectAnswerCounter);
+            console.log("Unanswered Questions" + unAnsweredQuestionCounter);
+        }
+
 
     }
 

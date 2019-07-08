@@ -22,7 +22,7 @@
     border:20px;
 }
 
-#timeMessage{
+#timeMessage , #outOfTimeMessage{
     margin-top: 10%;
     font-family: 'Libre Baskerville', serif;
     font-size: 50px;
