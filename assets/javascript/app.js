@@ -15,7 +15,9 @@ $(document).ready(function () {
 
     function readQuestionFile() {
         // console.log("Read Started");
-        fetch("/assets/javascript/questions.json")
+        // fetch("/assets/javascript/questions.json")
+        fetch("https://github.com/unnikrishnan-r/Trivia-Game/blob/master/assets/javascript/questions.json")
+
             .then(function (resp) {
                 return resp.json();
             })
