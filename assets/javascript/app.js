@@ -32,24 +32,26 @@ $(document).ready(function() {
 
     $("#startBtn").on("click", function() {
       // console.log("Clicked Start Button");
-      readQuestionFile();
+      //   readQuestionFile();
+      startGame();
     });
   }
 
   //   Function to read a JSON file from repository. Once the file is read it invokes startGame() function
   //   by passing the JSON content from the file.
   function readQuestionFile() {
-    // console.log("Read Started");
-    fetch("assets/javascript/questions.json")
+    console.log("Read Started");
+    return fetch("assets/javascript/questions.json")
       .then(function(resp) {
+        console.log("Read Completed");
         return resp.json();
       })
       .then(function(data) {
-        // console.log("Displaying Response of Fetch : ");
-        // console.log(data);
-        startGame(data);
+        console.log("Displaying Response of Fetch : ");
+        console.log(data);
+        // startGame(data);
+        return data;
       });
-    // console.log("Read Completed");
   }
 
   /*This function starts the game by performing below
@@ -58,14 +60,17 @@ $(document).ready(function() {
   3. Calls createQuestionHtmlElement() to create placeholders for questions, choices and timer message
   4. Calls askQuestion() to ask the first question
 */
-  function startGame(gameQuestions) {
-    // console.log(gameQuestions);
-    // console.log(Object.keys(gameQuestions));
-    $("#startButton").remove();
-    gameObject = gameQuestions;
-    currentQuestionNumber = 1;
-    createQuestionHtmlElement();
-    askQuestion(gameQuestions.question1);
+  function startGame() {
+    readQuestionFile().then(function(gameQuestions) {
+      console.log("Displaying Game Data :" + gameQuestions);
+      console.log(gameQuestions);
+      console.log(Object.keys(gameQuestions));
+      $("#startButton").remove();
+      gameObject = gameQuestions;
+      currentQuestionNumber = 1;
+      createQuestionHtmlElement();
+      askQuestion(gameQuestions.question1);
+    });
   }
 
   /*Creates placeholders for:
@@ -143,7 +148,7 @@ $(document).ready(function() {
       // console.log($(this).attr("cnbr"))
       processResult(currentQuestionNumber, $(this).attr("cnbr"), false);
     });
-    
+
     startCountDown();
   }
 
@@ -151,7 +156,7 @@ $(document).ready(function() {
   function startCountDown() {
     countDown = setInterval(function() {
       remainingSeconds--;
-      
+
       timerMessage = "Time Remaining: " + remainingSeconds + " Seconds";
       $("#timeMessage").text(timerMessage);
 
@@ -211,7 +216,7 @@ $(document).ready(function() {
     );
 
     if (currentQuestionNumber < Object.keys(gameObject).length) {
-        waitAndAskNextQuestion();
+      waitAndAskNextQuestion();
     } else {
       console.log("Correct Answer : " + correctAnswerCounter);
       console.log("Incorrect Answer : " + inCorrectAnswerCounter);
