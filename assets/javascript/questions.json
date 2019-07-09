@@ -1,23 +1,27 @@
 {
   "question1": {
     "questionNbr": 1,
-    "question": "What is the captital of Kerala?",
+    "question": "What won the NBA championship in 2019?",
     "choices": {
-      "choice1": "Ernakulam",
-      "choice2": "Trivandum",
-      "choice3": "Calicut"
+      "choice1": "Golden State Warriors",
+      "choice2": "Toronto Raptors",
+      "choice3": "Portland Trail Blazers",
+      "choice4": "Milwaukee Bucks"
 
     },
-    "answer": "Trivandum"
+    "answer": "Toronto Raptors"
   },
   "question2": {
     "questionNbr": 2,
-    "question": "What is the captital of Tamil Nadu?",
+    "question": "Which team did Kwahi Leonard plat for prior to Raptors?",
     "choices": {
-      "choice1": "Chennai",
-      "choice2": "Coimbatore"
+      "choice1": "San Antonio Spurs",
+      "choice2": "Houston Rockets",
+      "choice3": "LA Clippers",
+      "choice4": "San Antonio Spurs"
+
     },
-    "answer": "Chennai"
+    "answer": "San Antonio Spurs"
   },
   "question3": {
     "questionNbr": 3,
