@@ -221,6 +221,7 @@ $(document).ready(function() {
       console.log("Correct Answer : " + correctAnswerCounter);
       console.log("Incorrect Answer : " + inCorrectAnswerCounter);
       console.log("Unanswered Questions" + unAnsweredQuestionCounter);
+      gameOver();
     }
   };
 
@@ -241,5 +242,17 @@ $(document).ready(function() {
     }, 2000);
   }
 
+  function gameOver() {
+    setTimeout(function() {
+      $("#outOfTimeMessage").remove();
+      var gameOverMessage = "GAME OVER" + `<br>` + 
+      "Questions answered Correctly:" + correctAnswerCounter     + `<br>`  +
+      "Questions answered incorrectly:" + inCorrectAnswerCounter +  `<br>` +
+      "Questions skipped:" + unAnsweredQuestionCounter
+
+      console.log(gameOverMessage);
+      $(".questionFont").text("GAME OVER");
+    }, 3000);
+  }
   showStartButton();
 });
