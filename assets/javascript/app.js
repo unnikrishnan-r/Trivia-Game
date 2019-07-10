@@ -245,13 +245,13 @@ $(document).ready(function() {
   function gameOver() {
     setTimeout(function() {
       $("#outOfTimeMessage").remove();
-      var gameOverMessage = "GAME OVER" + `<br>` + 
-      "Questions answered Correctly:" + correctAnswerCounter     + `<br>`  +
-      "Questions answered incorrectly:" + inCorrectAnswerCounter +  `<br>` +
+      var gameOverMessage = "GAME OVER" + "<br/>" + 
+      "Questions answered Correctly:" + correctAnswerCounter     + "<br/>"  +
+      "Questions answered incorrectly:" + inCorrectAnswerCounter +  "<br/>" +
       "Questions skipped:" + unAnsweredQuestionCounter
 
       console.log(gameOverMessage);
-      $(".questionFont").text("GAME OVER");
+      $(".questionFont").html(gameOverMessage);
     }, 3000);
   }
   showStartButton();
